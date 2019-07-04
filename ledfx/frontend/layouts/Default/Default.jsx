@@ -1,9 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import {
-  fetchDeviceList,
-  fetchSchemasIfNeeded
-} from "frontend/actions";
+import { fetchDeviceList, fetchSchemasIfNeeded } from "frontend/actions";
 import PropTypes from "prop-types";
 import { Switch, Route, Redirect } from "react-router-dom";
 
@@ -26,14 +23,14 @@ const defaultTheme = createMuiTheme({
     secondary: green
   },
   overrides: {
-      MuiFormControl: {
-        root: {
-          margin: 8,
-          minWidth: 225,
-          flex: "1 0 30%"
-        },
-      },
-    },
+    MuiFormControl: {
+      root: {
+        margin: 8,
+        minWidth: 225,
+        flex: "1 0 30%"
+      }
+    }
+  }
 });
 
 class DefaultLayout extends React.Component {
@@ -69,42 +66,61 @@ class DefaultLayout extends React.Component {
       });
       this.setState(newState);
     };
+    if (this.props.location.pathname !== "/graph/test") {
+      return (
+        <div className={classes.root} ref="root">
+          <CssBaseline />
+          <MuiThemeProvider theme={this.state.theme}>
+            <Header
+              handleDrawerToggle={handleDrawerToggle}
+              location={this.props.location}
+            />
+            <Sidebar
+              handleDrawerToggle={handleDrawerToggle}
+              open={this.state.mobileOpen}
+              location={this.props.location}
+            />
 
-    return (
-      <div className={classes.root} ref="root">
-        <CssBaseline />
-        <MuiThemeProvider theme={this.state.theme}>
-          <Header
-            handleDrawerToggle={handleDrawerToggle}
-            location={this.props.location}
-          />
-          <Sidebar
-            handleDrawerToggle={handleDrawerToggle}
-            open={this.state.mobileOpen}
-            location={this.props.location}
-          />
-
-          <div className={classes.content}>
-            <div className={classes.toolbar} />
-            <Switch>
-              {viewRoutes.map((prop, key) => {
-                if (prop.redirect) {
-                  return <Redirect from={prop.path} to={prop.to} key={key} />;
-                }
-                return (
-                  <Route
-                    exact
-                    path={prop.path}
-                    component={prop.component}
-                    key={key}
-                  />
-                );
-              })}
-            </Switch>
-          </div>
-        </MuiThemeProvider>
-      </div>
-    );
+            <div className={classes.content}>
+              <div className={classes.toolbar} />
+              <Switch>
+                {viewRoutes.map((prop, key) => {
+                  if (prop.redirect) {
+                    return <Redirect from={prop.path} to={prop.to} key={key} />;
+                  }
+                  return (
+                    <Route
+                      exact
+                      path={prop.path}
+                      component={prop.component}
+                      key={key}
+                    />
+                  );
+                })}
+              </Switch>
+            </div>
+          </MuiThemeProvider>
+        </div>
+      );
+    } else {
+      return (
+        <Switch>
+          {viewRoutes.map((prop, key) => {
+            if (prop.redirect) {
+              return <Redirect from={prop.path} to={prop.to} key={key} />;
+            }
+            return (
+              <Route
+                exact
+                path={prop.path}
+                component={prop.component}
+                key={key}
+              />
+            );
+          })}
+        </Switch>
+      );
+    }
   }
 }
 

@@ -9,6 +9,7 @@ import DashboardView from "frontend/views/Dashboard/Dashboard.jsx";
 import DevicesView from "frontend/views/Devices/Devices.jsx";
 import DeviceView from "frontend/views/Device/Device.jsx";
 import DeveloperView from "frontend/views/Developer/Developer.jsx";
+import PixelColorGraphView from "../views/PixelColorGraph/PixelColorGraphView";
 
 const viewRoutes = [
   {
@@ -23,7 +24,14 @@ const viewRoutes = [
     navbarName: "Devices",
     sidebarName: "Devices",
     icon: List,
-    component: DeviceView,
+    component: DeviceView
+  },
+  {
+    path: "/graph/test",
+    navbarName: "Graph",
+    sidebarName: "Graph",
+    icon: List,
+    component: PixelColorGraphView
   },
   {
     path: "/devices",
@@ -43,7 +51,7 @@ const viewRoutes = [
     navbarName: "Developer",
     icon: Tune,
     component: DeveloperView
-  }, 
+  },
   { redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect" }
 ];
 

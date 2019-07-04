@@ -16,7 +16,6 @@ import headerStyle from "./style.jsx";
 import viewRoutes from "frontend/routes/views.jsx";
 
 class Header extends React.Component {
-
   getPageName() {
     var name;
     viewRoutes.map((prop, key) => {
@@ -26,16 +25,20 @@ class Header extends React.Component {
       return null;
     });
     if (!name) {
-      const path = this.props.location.pathname
+      const path = this.props.location.pathname;
       if (path.startsWith("/devices/")) {
         const deviceId = path.replace("/devices/", "");
-        const deviceName = this.props.devicesById[deviceId] != undefined ?
-          this.props.devicesById[deviceId].config.name : ""
-        name = "Devices / " + deviceName
+        const deviceName =
+          this.props.devicesById[deviceId] != undefined
+            ? this.props.devicesById[deviceId].config.name
+            : "";
+        name = "Devices / " + deviceName;
+      } else if (path.startsWith("/developer/")) {
+        name = "Developer / Custom";
       }
-      else if (path.startsWith("/developer/")) {
-        name = "Developer / Custom"
-      }
+    }
+    if (name === "Graph") {
+      return "";
     }
     return name;
   }
@@ -53,7 +56,8 @@ class Header extends React.Component {
             <IconButton
               color="inherit"
               aria-label="open drawer"
-              onClick={this.props.handleDrawerToggle}>
+              onClick={this.props.handleDrawerToggle}
+            >
               <Menu />
             </IconButton>
           </Hidden>
@@ -68,11 +72,11 @@ Header.propTypes = {
 };
 
 function mapStateToProps(state) {
-  const { devicesById } = state
+  const { devicesById } = state;
 
   return {
     devicesById
-  }
+  };
 }
 
-export default  connect(mapStateToProps)(withStyles(headerStyle)(Header));
+export default connect(mapStateToProps)(withStyles(headerStyle)(Header));

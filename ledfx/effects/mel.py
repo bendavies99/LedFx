@@ -45,8 +45,8 @@ def hertz_to_mel(freq):
     mel : scalar or ndarray
         Mel-frequency value or ndarray in Mel
     """
-    #return 2595.0 * log10(1 + (freq / 700.0))
-    return 3340.0 * log(1 + (freq / 250.0), 9)
+    return 2595.0 * log10(1 + (freq / 700.0))
+    # return 3340.0 * log(1 + (freq / 250.0), 9)
 
 
 def mel_to_hertz(mel):
@@ -60,8 +60,8 @@ def mel_to_hertz(mel):
     freq : scalar or ndarray
         Frequency value or array in Hz.
     """
-    #return 700.0 * (10**(mel / 2595.0)) - 700.0
-    return 250.0 * (9**(mel / 3340.0)) - 250.0
+    return 700.0 * (10**(mel / 2595.0)) - 700.0
+    # return 250.0 * (9**(mel / 3340.0)) - 250.0
 
 
 def melfrequencies_mel_filterbank(num_bands, freq_min, freq_max, num_fft_bands):
@@ -82,7 +82,7 @@ def melfrequencies_mel_filterbank(num_bands, freq_min, freq_max, num_fft_bands):
     lower_edges_mel : ndarray
     upper_edges_mel : ndarray
     """
-    
+
     mel_max = hertz_to_mel(freq_max)
     mel_min = hertz_to_mel(freq_min)
     delta_mel = abs(mel_max - mel_min) / (num_bands + 1.0)
@@ -93,8 +93,8 @@ def melfrequencies_mel_filterbank(num_bands, freq_min, freq_max, num_fft_bands):
     return center_frequencies_mel, lower_edges_mel, upper_edges_mel
 
 
-def compute_melmat(num_mel_bands=12, freq_min=64, freq_max=8000,
-                   num_fft_bands=513, sample_rate=16000):
+def compute_melmat(num_mel_bands=24, freq_min=64, freq_max=8000,
+                   num_fft_bands=513, sample_rate=48000):
     """Returns tranformation matrix for mel spectrum.
     Parameters
     ----------
